@@ -23,7 +23,7 @@ int main() {
             ans[p.second] = a[*lower_bound(id + l, id + r + 1, p.first)];
         }
     }
-    for (int i = 1;i <= n;i++) cout << ans[i] << " ";
+    for (int i = 1;i <= n;i++) cout << ans[i] << ' ';
     return 0;
 }
 
