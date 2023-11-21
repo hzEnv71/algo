@@ -3,27 +3,27 @@
 using namespace std;
 using i64 = long long;
 using p = pair<int, int>;
-const int N = 1e5 + 10;
-int  n, m, a[N], id[N], ans[N];
-vector<p> v[N];
+
+const int N = 1e6 + 10;
+int kmp[N];
+char s1[N], s2[N];
+
 int main() {
     IOS;
-    cin >> m >> n;
-    for (int i = 1;i <= m;i++) cin >> a[i];
-    for (int i = 1;i <= n;i++) {
-        int l, r;
-        cin >> l >> r;
-        v[r].push_back({ l,i });
+    cin >> (s1 + 1) >> (s2 + 1);
+    int la = strlen(s1 + 1), lb = strlen(s2 + 1);
+    for (int i = 2, j = 0;i <= lb;i++) {
+        while (j && s2[i] != s2[j + 1]) j = kmp[j];
+        if (s2[j + 1] == s2[i]) j++;
+        kmp[i] = j;
     }
-    int l = 1, r = 0;
-    for (int i = 1;i <= m;i++) {
-        while (l <= r && a[id[r]] >= a[i]) r--;
-        id[++r] = i;
-        for (auto p : v[i]) {
-            ans[p.second] = a[*lower_bound(id + l, id + r + 1, p.first)];
-        }
+    for (int i = 1, j = 0;i <= la;i++) {
+        while (j && s2[j + 1] != s1[i]) j = kmp[j];
+        if (s2[j + 1] == s1[i]) j++;
+        if (j == lb) cout << i - lb + 1 << "\n", j = kmp[j];
     }
-    for (int i = 1;i <= n;i++) cout << ans[i] << ' ';
+    for (int i = 1;i <= lb;i++) cout << kmp[i]<<' ';
     return 0;
 }
+
 
