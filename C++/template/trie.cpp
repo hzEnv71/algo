@@ -25,7 +25,7 @@ void insert(string s) {
         if (!trie[cur].child[t]) trie[cur].child[t] = ++_index;
         cur = trie[cur].child[t];
     }
-    trie[cur].hasNext = true;
+    trie[cur].hasNext = 1;
 }
 int find(string s) {
     int len = s.length();
